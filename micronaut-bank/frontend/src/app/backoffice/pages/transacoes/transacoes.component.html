@@ -1,0 +1,26 @@
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+  <label for="account">Conta:</label>
+  <input type="text" formControlName="account">
+  <button type="submit" [disabled]="!searchForm.valid">Submit</button>
+</form>
+
+<table>
+  <tr>
+    <th>Id Interno</th>
+    <th>Conta</th>
+    <th>Valor</th>
+    <th>Tipo Operacao</th>
+    <th>Data Hora</th>
+  </tr>
+  <tr *ngFor="let item of transactionService$ | async">
+    <td>{{ item.internalId }}</td>
+    <td>{{ item.account }}</td>
+    <td>{{ item.value | currency : 'BRL' }}</td>
+    <td>{{ item.operationType | operation }}</td>
+    <td>{{ item.time | date : 'dd/MM/yyyy HH:mm:ss' }}</td>
+  </tr>
+</table>
+
+<pre *ngIf="balanceService$ | async as balance">
+  {{ balance | json }}
+</pre>

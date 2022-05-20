@@ -1,0 +1,258 @@
+{
+	"info": {
+		"_postman_id": "5643c6e8-50f8-40f5-8c0a-c7826a2967ba",
+		"name": "Bank Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const responseJson = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 201\", () => {",
+							"  pm.expect(pm.response.code).to.eql(201);",
+							"});",
+							"",
+							"pm.test(\"asset that account is created\", () => {",
+							"    pm.expect(responseJson.account).not.null;",
+							"    pm.expect(responseJson.agency).to.eql(100)",
+							"});",
+							"",
+							"postman.setEnvironmentVariable('account', responseJson.account);",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"agency\": \"100\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/account",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Destination Account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const responseJson = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 201\", () => {",
+							"  pm.expect(pm.response.code).to.eql(201);",
+							"});",
+							"",
+							"pm.test(\"asset that account is created\", () => {",
+							"    pm.expect(responseJson.account).not.null;",
+							"    pm.expect(responseJson.agency).to.eql(100)",
+							"});",
+							"",
+							"postman.setEnvironmentVariable('destionation_account', responseJson.account);",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"agency\": \"100\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/account",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Balance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/account/{{account}}/agency/100/balance",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"account",
+						"{{account}}",
+						"agency",
+						"100",
+						"balance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deposit",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"value\": 103.58\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/account/{{account}}/agency/100/deposit",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"account",
+						"{{account}}",
+						"agency",
+						"100",
+						"deposit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Withdraw",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"value\": 37.58\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/account/{{account}}/agency/100/withdraw",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"account",
+						"{{account}}",
+						"agency",
+						"100",
+						"withdraw"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetTransactions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/account/{{account}}/agency/100/transactions",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"account",
+						"{{account}}",
+						"agency",
+						"100",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Do Transfer",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"origin\": {\n        \"account\": {{account}},\n        \"agency\": 100\n    },\n    \"destination\": {\n        \"account\": {{destionation_account}},\n        \"agency\": 100\n    },\n    \"value\": 50.54\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/transfer",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"transfer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Destination Transactions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/account/{{destionation_account}}/agency/100/transactions",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"account",
+						"{{destionation_account}}",
+						"agency",
+						"100",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

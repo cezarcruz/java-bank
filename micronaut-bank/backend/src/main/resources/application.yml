@@ -1,0 +1,39 @@
+micronaut:
+  server:
+    cors:
+      enabled: true
+      confiturations:
+        web:
+          allowedOrigins:
+            - http://localhost:4200
+  application:
+    name: bank
+  router:
+    static-resources:
+      swagger:
+        paths: classpath:META-INF/swagger
+        mapping: /swagger/**
+      swagger-ui:
+        paths: classpath:META-INF/swagger/views/swagger-ui
+        mapping: /swagger-ui/**
+  metrics:
+    enable: true
+    export:
+      prometheus:
+        enabled: true
+        step: PT1M
+        descriptions: true
+
+endpoints:
+  prometheus:
+    sensitive: false
+
+jackson:
+  serialization:
+    writeDatesAsTimestamps: false
+
+tracing:
+  jaeger:
+    enabled: true
+    sampler:
+      probability: 1
