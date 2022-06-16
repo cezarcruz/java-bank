@@ -36,12 +36,7 @@ repl-port
 out/
 build/
 
-#IDE
 /.idea
 *.iml
 
-/.clj-kondo
-/.lsp
-/.calva
 
-./.eastwood

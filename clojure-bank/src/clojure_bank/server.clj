@@ -31,7 +31,7 @@
 
 (defn -main
   "The entry-point for 'lein run'"
-  [& args]
+  [& _]
   (println "\nCreating your server...")
   (server/start runnable-service))
 

@@ -6,35 +6,36 @@
 
 (def service
   (::bootstrap/service-fn (bootstrap/create-servlet service/service)))
+(comment
+  (deftest home-page-test
+    (is (=
+          (:body (response-for service :get "/"))
+          "Hello World!"))
+    (is (=
+          (:headers (response-for service :get "/"))
+          {"Content-Type"                      "text/html;charset=UTF-8"
+           "Strict-Transport-Security"         "max-age=31536000; includeSubdomains"
+           "X-Frame-Options"                   "DENY"
+           "X-Content-Type-Options"            "nosniff"
+           "X-XSS-Protection"                  "1; mode=block"
+           "X-Download-Options"                "noopen"
+           "X-Permitted-Cross-Domain-Policies" "none"
+           "Content-Security-Policy"           "object-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'strict-dynamic' https: http:;"})))
 
-(deftest home-page-test
-  (is (=
-       (:body (response-for service :get "/"))
-       "Hello World!"))
-  (is (=
-       (:headers (response-for service :get "/"))
-       {"Content-Type" "text/plain"
-        "Strict-Transport-Security" "max-age=31536000; includeSubdomains"
-        "X-Frame-Options" "DENY"
-        "X-Content-Type-Options" "nosniff"
-        "X-XSS-Protection" "1; mode=block"
-        "X-Download-Options" "noopen"
-        "X-Permitted-Cross-Domain-Policies" "none"
-        "Content-Security-Policy" "object-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'strict-dynamic' https: http:;"})))
+  (deftest about-page-test
+    (is
+      (re-find #"Clojure \d+\.\d+(\.\d+)?"
+               (:body (response-for service :get "/about"))))
 
-(deftest about-page-test
-  (is
-   (not-empty
-            (:body (response-for service :get "/about"))))
-  
-  (is (=
-       (:headers (response-for service :get "/about"))
-       {"Content-Type" "application/json;charset=UTF-8"
-        "Strict-Transport-Security" "max-age=31536000; includeSubdomains"
-        "X-Frame-Options" "DENY"
-        "X-Content-Type-Options" "nosniff"
-        "X-XSS-Protection" "1; mode=block"
-        "X-Download-Options" "noopen"
-        "X-Permitted-Cross-Domain-Policies" "none"
-        "Content-Security-Policy" "object-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'strict-dynamic' https: http:;"})))
+    (is (=
+          (:headers (response-for service :get "/about"))
+          {"Content-Type"                      "text/html;charset=UTF-8"
+           "Strict-Transport-Security"         "max-age=31536000; includeSubdomains"
+           "X-Frame-Options"                   "DENY"
+           "X-Content-Type-Options"            "nosniff"
+           "X-XSS-Protection"                  "1; mode=block"
+           "X-Download-Options"                "noopen"
+           "X-Permitted-Cross-Domain-Policies" "none"
+           "Content-Security-Policy"           "object-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'strict-dynamic' https: http:;"})))
 
+  )
