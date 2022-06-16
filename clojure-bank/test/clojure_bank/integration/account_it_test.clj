@@ -3,7 +3,8 @@
             [io.pedestal.test :refer :all]
             [io.pedestal.http :as bootstrap]
             [clojure-bank.service :as service]
-            [cheshire.core :as json]))
+            [cheshire.core :as json])
+  (:import (java.util UUID)))
 
 (def service
   (::bootstrap/service-fn (bootstrap/create-servlet service/service)))
@@ -15,7 +16,10 @@
            "Hello World! XXX"))))
 
 (deftest create-an-account
-  (is (= (:body (response-for service
-                                :post "/account"
-                                :headers {"Content-Type" "application/json"}
-                                :body (json/encode account-in))) 201)))
+  (testing "account creation"
+    (let [response (json/parse-string (:body (response-for service
+                                                           :post "/account"
+                                                           :headers {"Content-Type" "application/json"}
+                                                           :body (json/encode account-in))) true)]
+      (println response)
+      (is (uuid? (UUID/fromString (:account response)))))))
