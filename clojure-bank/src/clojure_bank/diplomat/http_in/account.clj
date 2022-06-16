@@ -10,14 +10,3 @@
     {:status 201
      :body   result}
     {:status 400}))
-
-(comment
-  (defn create-affiliation!
-    [{data :data {:keys [datomic]} :components}]
-    (if-let [result (some-> data
-                            adapters.affiliation/affiliation-creation-request->affiliation
-                            (controllers.affiliation/create-affiliation! datomic)
-                            adapters.affiliation/affiliation->wire-affiliation)]
-      {:status 201
-       :body   result}
-      {:status 400})))
