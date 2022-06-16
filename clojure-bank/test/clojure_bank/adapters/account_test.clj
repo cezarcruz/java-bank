@@ -18,6 +18,6 @@
 (deftest creating-account-response
   (s/with-fn-validation
     (testing account->wire-account
-      (let [account-out (account->wire-account account-in-1)]`
+      (let [account-out (account->wire-account account-in-1)]
         (is (= (:account/number account-in-1) (:account account-out)))
         (is (= (:account/agency account-in-1) (:agency account-out)))))))
