@@ -18,14 +18,6 @@
   [_]
   (ring-resp/response "Hello World! XXX"))
 
-(defn home-page-v2
-  [_]
-  (ring-resp/response {:death "note"}))
-
-;(defn post-account
-;  [{body :json-params}]
-;  (ring-resp/response body))
-
 ;; Defines "/" and "/about" routes with their associated :get handlers.
 ;; The interceptors defined after the verb map (e.g., {:get home-page}
 ;; apply to / and its children (/about).
@@ -34,33 +26,10 @@
 ;; Tabular routes
 (def routes #{["/"        :get  (conj common-interceptors `home-page)]
               ["/about"   :get  (conj common-interceptors `about-page)]
-              ["/home"    :get  (conj common-interceptors `home-page-v2)]
-              ;["/account" :get  (conj common-interceptors `get-account)]
+              ["/account/:account-id" :get  (conj common-interceptors
+                                      http-in.account/get-account) :route-name :get-account]
               ["/account" :post (conj common-interceptors
                                       http-in.account/create-account!) :route-name :create-account]})
-
-;; Map-based routes
-;(def routes `{"/" {:interceptors [(body-params/body-params) http/html-body]
-;                   :get home-page
-;                   "/about" {:get about-page}}})
-
-;(def routes `{"/" {:interceptors ('common-interceptors)
-;                   :get          home-page
-;                   "/about"      {:get about-page}
-;                   "/account"    {:get  get-account
-;                                  :post post-account}}})
-
-;(def routes
-;  `[[["/" {:get home-page}
-;      ^:interceptors common-interceptors
-;      ["/about" {:get about-page}]
-;      ["/account" {:get get-account} {:post post-account}]]]])
-;; Terse/Vector-based routes
-;(def routes
-;  `[[["/" {:get home-page}
-;      ^:interceptors [(body-params/body-params) http/html-body]
-;      ["/about" {:get about-page}]]]])
-
 
 ;; Consumed by clojure-bank.server/create-server
 ;; See http/default-interceptors for additional options you can configure
