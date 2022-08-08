@@ -24,13 +24,24 @@
 (def common-interceptors [(body-params/body-params) http/json-body])
 
 ;; Tabular routes
-(def routes #{["/" :get  (conj common-interceptors `home-page)]
-              ["/about"   :get  (conj common-interceptors `about-page)]
-              ["/account/:account-id" :get  (conj common-interceptors
-                                      http-in.account/get-account) :route-name :get-account]
-              ["/account/:account/agency/:agency/balance" :get (conj common-interceptors http-in.account/get-balance) :route-name :get-balance]
-              ["/account" :post (conj common-interceptors
-                                      http-in.account/create-account!) :route-name :create-account]})
+(def routes #{["/"
+               :get   (conj common-interceptors
+                           `home-page)]
+              ["/about"
+               :get   (conj common-interceptors
+                           `about-page)]
+              ["/account/:account-id"
+               :get   (conj common-interceptors
+                            http-in.account/get-account)
+               :route-name :get-account]
+              ["/account/:account/agency/:agency/balance"
+               :get   (conj common-interceptors
+                            http-in.account/get-balance)
+               :route-name :get-balance]
+              ["/account"
+               :post  (conj common-interceptors
+                            http-in.account/create-account!)
+               :route-name :create-account]})
 
 ;; Consumed by clojure-bank.server/create-server
 ;; See http/default-interceptors for additional options you can configure
