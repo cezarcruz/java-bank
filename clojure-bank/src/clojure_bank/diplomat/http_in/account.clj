@@ -15,7 +15,7 @@
 
 (defn get-account [request]
   (let [account-id (get-in request [:path-params :account-id])]
-    (if-let [result (some-> (db.account/get-by (UUID/fromString account-id))
+    (if-let [result (some-> (db.account/get-by account-id)
                             adapters.account/account->wire-account)]
       {:status  200
        :body    result}

@@ -4,7 +4,9 @@
             [io.pedestal.http.body-params :as body-params]
             [ring.util.response :as ring-resp]
             [schema.core :as s]
-            [clojure-bank.diplomat.http-in.account :as http-in.account]))
+            [clojure-bank.diplomat.http-in.account :as http-in.account]
+            [io.pedestal.interceptor :as i])
+  (:import [java.util UUID]))
 
 (defn about-page
   [_]
@@ -23,6 +25,21 @@
 ;; apply to / and its children (/about).
 (def common-interceptors [(body-params/body-params) http/json-body])
 
+
+;temp
+
+(defn str->uuid [uuid] (UUID/fromString uuid))
+
+(defn path-id->uuid
+  ([] (path-id->uuid :id :uuid))
+  ([src-name dest-name]
+   (i/interceptor
+     {:name ::path-id->uuid
+      :enter (fn [context]
+               (if-let [id (-> context :request :path-params src-name)]
+                 (update-in context [:request dest-name] #(or % (str->uuid id)))
+                 context))})))
+
 ;; Tabular routes
 (def routes #{["/"
                :get   (conj common-interceptors
@@ -34,6 +51,7 @@
                :route-name :get-about]
               ["/account/:account-id"
                :get   (conj common-interceptors
+                            (path-id->uuid :account-id :account-id)
                             http-in.account/get-account)
                :route-name :get-account]
               ["/account/:account/agency/:agency/balance"
