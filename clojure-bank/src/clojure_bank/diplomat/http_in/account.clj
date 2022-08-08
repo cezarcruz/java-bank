@@ -22,7 +22,10 @@
 
 (defn get-balance [request]
   (let [account-id  (get-in request [:path-params :account])
-        agency-id   (get-in request [:path-params :agency])]
-    {:status 200
-     :body {:account  account-id
-            :agency   agency-id}}))
+        agency-id   (get-in request [:path-params :agency])] ;this does not make sense now
+    (if-let [result (some-> (db.account/get-by account-id)
+                            adapters.account/account->wire-account)]
+      {:status 200
+       :body result}
+      {:status 404
+       :body {}})))

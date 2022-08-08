@@ -56,6 +56,7 @@
                :route-name :get-account]
               ["/account/:account/agency/:agency/balance"
                :get   (conj common-interceptors
+                            (path-id->uuid :account :account)
                             http-in.account/get-balance)
                :route-name :get-balance]
               ["/account"
