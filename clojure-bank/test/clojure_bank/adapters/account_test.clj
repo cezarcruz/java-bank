@@ -5,8 +5,9 @@
   (:import (java.util UUID)))
 
 (def account-in {:agency "001"})
-(def account-in-1 {:account/number (UUID/randomUUID)
-                   :account/agency "001"})
+(def account-in-1 {:account/number  (UUID/randomUUID)
+                   :account/agency  "001"
+                   :account/balance 0M})
 (def account-in-invalid {:agency ""})
 
 (deftest creating-account-request

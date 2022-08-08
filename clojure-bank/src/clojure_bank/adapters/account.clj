@@ -8,8 +8,9 @@
 (s/defn account-creation-request->account :- models.account/Account
   [request :- wire.in.account/AccountCreationRequest]
   {:account/number (UUID/randomUUID)
-   :account/agency (:agency request)})
+   :account/agency (:agency request)
+   :account/balance 0M})
 
 (s/defn account->wire-account :- wire.out.account/Account
-  [{:account/keys [number agency]} :- models.account/Account]
-  {:account number :agency agency})
+  [{:account/keys [number agency balance]} :- models.account/Account]
+  {:account number :agency agency :balance balance})

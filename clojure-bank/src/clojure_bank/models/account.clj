@@ -2,5 +2,5 @@
   (:require [schema.core :as s]))
 
 (s/defschema Account {:account/number s/Uuid
-                      :account/agency s/Str})
-
+                      :account/agency s/Str
+                      :account/balance s/Num})

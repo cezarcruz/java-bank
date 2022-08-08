@@ -1,7 +1,6 @@
 (ns clojure-bank.diplomat.http-in.account
   (:require [clojure-bank.adapters.account :as adapters.account]
-            [clojure-bank.db.memory.account-repository :as db.account])
-  (:import (java.util UUID)))
+            [clojure-bank.db.memory.account-repository :as db.account]))
 
 (defn create-account!
   [{body :json-params}]
@@ -19,7 +18,7 @@
                             adapters.account/account->wire-account)]
       {:status  200
        :body    result}
-      {:status 404})))
+      {:status  404})))
 
 (defn get-balance [request]
   (let [account-id  (get-in request [:path-params :account])
