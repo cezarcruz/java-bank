@@ -26,10 +26,12 @@
 ;; Tabular routes
 (def routes #{["/"
                :get   (conj common-interceptors
-                           `home-page)]
+                           `home-page)
+               :route-name :get-home]
               ["/about"
                :get   (conj common-interceptors
-                           `about-page)]
+                           `about-page)
+               :route-name :get-about]
               ["/account/:account-id"
                :get   (conj common-interceptors
                             http-in.account/get-account)
