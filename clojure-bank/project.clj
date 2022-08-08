@@ -19,7 +19,7 @@
                  [org.slf4j/log4j-over-slf4j "1.7.36"]]
   :min-lein-version "2.0.0"
   :resource-paths ["config", "resources"]
-  :plugins [[lein-cloverage "1.2.2"]]
+  :plugins [[lein-cloverage "1.2.3"]]
   ;; If you use HTTP/2 or ALPN, use the java-agent to pull in the correct alpn-boot dependency
   ;:java-agents [[org.mortbay.jetty.alpn/jetty-alpn-agent "2.0.5"]]
   :profiles {:dev {:aliases {"run-dev" ["trampoline" "run" "-m" "clojure-bank.server/run-dev"]}
