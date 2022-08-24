@@ -62,7 +62,11 @@
               ["/account"
                :post  (conj common-interceptors
                             http-in.account/create-account!)
-               :route-name :create-account]})
+               :route-name :create-account]
+              ["/account/:account/deposit"
+               :post  (conj common-interceptors
+                            (path-id->uuid :account :account)
+                            http-in.account/deposit!)]})
 
 ;; Consumed by clojure-bank.server/create-server
 ;; See http/default-interceptors for additional options you can configure

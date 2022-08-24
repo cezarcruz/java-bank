@@ -12,6 +12,14 @@
      :body   result}
     {:status 400}))
 
+; send this to a queue
+(defn deposit!
+  [{body :json-params}]                                     ; extract path param here
+  (if-let [result (some-> body
+                          adapters.account/deposit-request->deposit)]
+    {:status  201
+     :body    "deposit request"}))
+
 (defn get-account [request]
   (let [account-id (get-in request [:path-params :account-id])]
     (if-let [result (some-> (db.account/get-by account-id)
