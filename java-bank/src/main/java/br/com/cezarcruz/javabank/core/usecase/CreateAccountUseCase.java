@@ -1,23 +1,25 @@
 package br.com.cezarcruz.javabank.core.usecase;
 
 import br.com.cezarcruz.javabank.core.domain.Account;
+import br.com.cezarcruz.javabank.core.gateway.out.CreateAccountGateway;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 @Service
 @AllArgsConstructor
 public class CreateAccountUseCase {
 
     private final AccountGeneratorUseCase accountGeneratorUseCase;
+    private final CreateAccountGateway createAccountGateway;
 
     public Account create(final String agency) {
-        return Account.builder()
+
+        final Account accountWithAccountNumber = Account.builder()
                 .account(accountGeneratorUseCase.generate(agency))
                 .agency(agency)
-                .internalId(UUID.randomUUID().toString())
                 .build();
+
+        return createAccountGateway.create(accountWithAccountNumber);
     }
 
 }
