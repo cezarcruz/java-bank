@@ -21,7 +21,7 @@ public class CreateAccountController {
     @PostMapping
     public ResponseEntity<Account> create(@RequestBody final CreateAccountRequest request) {
         return ResponseEntity
-                .status(HttpStatus.CREATED)
+                .status(HttpStatus.ACCEPTED)
                 .body(createAccountUseCase.create(request.getAgency()));
     }
 
