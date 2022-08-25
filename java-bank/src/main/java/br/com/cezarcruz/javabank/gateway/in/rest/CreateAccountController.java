@@ -1,7 +1,7 @@
-package br.com.cezarcruz.javabank.core.rest;
+package br.com.cezarcruz.javabank.gateway.in.rest;
 
 import br.com.cezarcruz.javabank.core.domain.Account;
-import br.com.cezarcruz.javabank.core.rest.request.CreateAccountRequest;
+import br.com.cezarcruz.javabank.gateway.in.rest.request.CreateAccountRequest;
 import br.com.cezarcruz.javabank.core.usecase.CreateAccountUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

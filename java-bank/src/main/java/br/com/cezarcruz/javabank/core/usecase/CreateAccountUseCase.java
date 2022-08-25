@@ -1,7 +1,7 @@
 package br.com.cezarcruz.javabank.core.usecase;
 
 import br.com.cezarcruz.javabank.core.domain.Account;
-import br.com.cezarcruz.javabank.core.gateway.out.CreateAccountGateway;
+import br.com.cezarcruz.javabank.gateway.out.CreateAccountGateway;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

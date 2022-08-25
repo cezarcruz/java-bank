@@ -1,4 +1,4 @@
-package br.com.cezarcruz.javabank.core.rest.request;
+package br.com.cezarcruz.javabank.gateway.in.rest.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

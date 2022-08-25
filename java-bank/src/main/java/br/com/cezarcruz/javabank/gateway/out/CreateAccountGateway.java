@@ -1,4 +1,4 @@
-package br.com.cezarcruz.javabank.core.gateway.out;
+package br.com.cezarcruz.javabank.gateway.out;
 
 import br.com.cezarcruz.javabank.core.domain.Account;
 

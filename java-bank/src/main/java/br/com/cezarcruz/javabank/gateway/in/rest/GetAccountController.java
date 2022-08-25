@@ -1,4 +1,4 @@
-package br.com.cezarcruz.javabank.core.rest;
+package br.com.cezarcruz.javabank.gateway.in.rest;
 
 import br.com.cezarcruz.javabank.core.domain.Account;
 import br.com.cezarcruz.javabank.core.usecase.GetAccountUseCase;
