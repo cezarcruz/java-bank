@@ -10,16 +10,22 @@ import org.springframework.stereotype.Service;
 public class CreateAccountUseCase {
 
     private final AccountGeneratorUseCase accountGeneratorUseCase;
-    private final CreateAccountGateway createAccountGateway;
+    private final CreateAccountGateway accountMemoryRepository;
 
-    public Account create(final String agency) {
+    public void create(final String agency) {
+
+        try {
+            Thread.sleep(2000L);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         final Account accountWithAccountNumber = Account.builder()
                 .account(accountGeneratorUseCase.generate(agency))
                 .agency(agency)
                 .build();
 
-        return createAccountGateway.create(accountWithAccountNumber);
+        accountMemoryRepository.create(accountWithAccountNumber);
     }
 
 }

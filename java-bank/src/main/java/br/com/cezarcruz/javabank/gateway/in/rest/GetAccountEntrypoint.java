@@ -14,7 +14,7 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/account")
-public class GetAccountController {
+public class GetAccountEntrypoint {
 
     private final GetAccountUseCase getAccountUseCase;
 

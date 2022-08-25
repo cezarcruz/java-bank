@@ -1,8 +1,8 @@
 package br.com.cezarcruz.javabank.gateway.in.rest;
 
 import br.com.cezarcruz.javabank.core.domain.Account;
+import br.com.cezarcruz.javabank.core.usecase.StartAccountCreation;
 import br.com.cezarcruz.javabank.gateway.in.rest.request.CreateAccountRequest;
-import br.com.cezarcruz.javabank.core.usecase.CreateAccountUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,15 +14,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/account")
-public class CreateAccountController {
+public class CreateAccountEntrypoint {
 
-    private final CreateAccountUseCase createAccountUseCase;
+
+    private final StartAccountCreation startAccountCreation;
 
     @PostMapping
     public ResponseEntity<Account> create(@RequestBody final CreateAccountRequest request) {
+
+        final Account account =
+                Account.builder()
+                        .agency(request.getAgency())
+                        .build();
+
+        startAccountCreation.create(account);
+
         return ResponseEntity
                 .status(HttpStatus.ACCEPTED)
-                .body(createAccountUseCase.create(request.getAgency()));
+                .build();
     }
 
 }
