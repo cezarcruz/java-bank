@@ -20,7 +20,7 @@ public class CreateAccountEntrypoint {
     private final StartAccountCreation startAccountCreation;
 
     @PostMapping
-    public ResponseEntity<Account> create(@RequestBody final CreateAccountRequest request) {
+    public ResponseEntity<Void> create(@RequestBody final CreateAccountRequest request) {
 
         final Account account =
                 Account.builder()
