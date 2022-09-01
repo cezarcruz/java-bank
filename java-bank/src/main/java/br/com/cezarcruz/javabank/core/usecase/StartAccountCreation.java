@@ -3,6 +3,7 @@ package br.com.cezarcruz.javabank.core.usecase;
 import br.com.cezarcruz.javabank.core.domain.Account;
 import br.com.cezarcruz.javabank.core.domain.AccountStatus;
 import br.com.cezarcruz.javabank.gateway.out.CreateAccountGateway;
+import br.com.cezarcruz.javabank.gateway.out.PublishAccountCreation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class StartAccountCreation {
 
-    private final CreateAccountGateway createAccountKafkaGateway;
+    private final PublishAccountCreation publishAccountCreation;
     private final CreateAccountGateway createAccountMemoryRepository;
 
     public void create(final Account account) {
@@ -22,6 +23,6 @@ public class StartAccountCreation {
 
         createAccountMemoryRepository.create(pendingAccount);
         //TODO: may change to notify
-        createAccountKafkaGateway.create(pendingAccount);
+        publishAccountCreation.create(pendingAccount);
     }
 }
