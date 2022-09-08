@@ -1,6 +1,6 @@
 # clojure-bank
 
-FIXME
+//FIXME
 
 ## Getting Started
 
