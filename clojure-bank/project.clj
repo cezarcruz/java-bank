@@ -26,3 +26,4 @@
                    :dependencies [[io.pedestal/pedestal.service-tools "0.5.10"]]}
              :uberjar {:aot [clojure-bank.server]}}
   :main ^{:skip-aot true} clojure-bank.server)
+
