@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/account")
 public class CreateAccountEntrypoint {
 
-
     private final StartAccountCreation startAccountCreation;
 
     @PostMapping
