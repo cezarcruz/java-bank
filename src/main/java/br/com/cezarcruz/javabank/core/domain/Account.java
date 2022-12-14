@@ -17,6 +17,5 @@ public class Account {
     private String internalId;
     private Integer accountNumber;
     private String agency;
-
     private AccountStatus status;
 }

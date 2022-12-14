@@ -15,9 +15,11 @@ public class GetAccountEntrypoint {
     private final GetAccountUseCase getAccountUseCase;
 
     public Mono<ServerResponse> getBy(final String internalId) {
-        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
-            .body(BodyInserters.fromValue(getAccountUseCase.getBy(internalId)));
+        return getAccountUseCase.getBy(internalId)
+            .map(account -> ServerResponse.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(BodyInserters.fromValue(account)))
+            .orElseThrow();
     }
-
 }
 

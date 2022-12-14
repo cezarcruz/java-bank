@@ -41,7 +41,7 @@ public class AccountMemoryRepository implements CreateAccountGateway, GetAccount
     @Override
     public Optional<Account> getBy(final String internalId) {
         return db.stream()
-                .filter(a -> a.getInternalId().equals(internalId))
+                .filter(a -> internalId.equals(a.getInternalId()))
                 .findFirst();
     }
 }

@@ -12,6 +12,7 @@ import reactor.core.publisher.Mono;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class RouterTest {
@@ -24,6 +25,8 @@ class RouterTest {
 
     @Test
     void whenCreatingNewAccount() {
+
+        when(startAccountCreation.create(any())).thenReturn(Mono.empty());
 
         final WebTestClient client = WebTestClient
             .bindToRouterFunction(router.composedRoutes())
