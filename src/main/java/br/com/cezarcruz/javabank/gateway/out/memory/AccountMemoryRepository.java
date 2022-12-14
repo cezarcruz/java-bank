@@ -23,8 +23,7 @@ public class AccountMemoryRepository implements CreateAccountGateway, GetAccount
     @Override
     public Account create(final Account account) {
 
-        //TODO: move to another class
-        if (account.getStatus().equals(AccountStatus.PENDING)) {
+        if (AccountStatus.PENDING.equals(account.getStatus())) {
             db.add(account);
             return account;
         }
