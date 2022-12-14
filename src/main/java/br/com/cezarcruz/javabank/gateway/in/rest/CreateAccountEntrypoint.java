@@ -6,20 +6,19 @@ import br.com.cezarcruz.javabank.gateway.in.rest.request.CreateAccountRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Component
 @RequiredArgsConstructor
-@RestController
-@RequestMapping("/account")
 public class CreateAccountEntrypoint {
 
     private final StartAccountCreation startAccountCreation;
 
-    @PostMapping
-    public ResponseEntity<Void> create(@RequestBody final CreateAccountRequest request) {
+    public void create(final CreateAccountRequest request) {
 
         final Account account =
                 Account.builder()
@@ -27,10 +26,6 @@ public class CreateAccountEntrypoint {
                         .build();
 
         startAccountCreation.create(account);
-
-        return ResponseEntity
-                .status(HttpStatus.ACCEPTED)
-                .build();
     }
 
 }

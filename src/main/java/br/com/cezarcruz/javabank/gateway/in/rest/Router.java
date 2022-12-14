@@ -1,5 +1,6 @@
 package br.com.cezarcruz.javabank.gateway.in.rest;
 
+import br.com.cezarcruz.javabank.gateway.in.rest.request.CreateAccountRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -7,6 +8,7 @@ import org.springframework.web.servlet.function.RouterFunction;
 import org.springframework.web.servlet.function.ServerResponse;
 
 import static org.springframework.web.servlet.function.RequestPredicates.GET;
+import static org.springframework.web.servlet.function.RequestPredicates.POST;
 import static org.springframework.web.servlet.function.RouterFunctions.route;
 import static org.springframework.web.servlet.function.ServerResponse.ok;
 
@@ -15,6 +17,7 @@ import static org.springframework.web.servlet.function.ServerResponse.ok;
 public class Router {
 
     private final GetAccountEntrypoint getAccountEntrypoint;
+    private final CreateAccountEntrypoint createAccountEntrypoint;
 
     @Bean
     public RouterFunction<ServerResponse> getAccountById() {
@@ -23,6 +26,15 @@ public class Router {
             return getAccountEntrypoint.getBy(internalId)
                     .map(a -> ok().body(a))
                     .orElseThrow(RuntimeException::new);
+        });
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> createAccount() {
+        return route(POST("/account"), req -> {
+            final var request = req.body(CreateAccountRequest.class);
+            createAccountEntrypoint.create(request);
+            return ServerResponse.accepted().build();
         });
     }
 
