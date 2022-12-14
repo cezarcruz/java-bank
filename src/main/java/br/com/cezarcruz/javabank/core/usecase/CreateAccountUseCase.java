@@ -14,12 +14,6 @@ public class CreateAccountUseCase {
 
     public void create(final String agency) {
 
-        try {
-            Thread.sleep(2000L);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
         final Account accountWithAccountNumber = Account.builder()
                 .account(accountGeneratorUseCase.generate(agency))
                 .agency(agency)
