@@ -15,7 +15,7 @@ public class CreateAccountUseCase {
     public void create(final String agency) {
 
         final Account accountWithAccountNumber = Account.builder()
-                .account(accountGeneratorUseCase.generate(agency))
+                .accountNumber(accountGeneratorUseCase.generate(agency))
                 .agency(agency)
                 .build();
 

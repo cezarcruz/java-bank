@@ -15,7 +15,7 @@ import lombok.ToString;
 @ToString
 public class Account {
     private String internalId;
-    private Integer account;
+    private Integer accountNumber;
     private String agency;
 
     private AccountStatus status;
