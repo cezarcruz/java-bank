@@ -16,8 +16,7 @@ public class CreateAccountEntrypoint {
     public Mono<Void> create(final CreateAccountRequest request) {
 
         return Mono.just(request)
-            .map(r -> Account.builder().agency(r.getAgency())
-                .build())
+            .map(r -> Account.builder().agency(r.getAgency()).build())
                 .flatMap(startAccountCreation::create);
     }
 

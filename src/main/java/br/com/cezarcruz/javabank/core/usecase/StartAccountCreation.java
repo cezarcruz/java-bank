@@ -2,7 +2,6 @@ package br.com.cezarcruz.javabank.core.usecase;
 
 import br.com.cezarcruz.javabank.core.domain.Account;
 import br.com.cezarcruz.javabank.core.domain.AccountStatus;
-import br.com.cezarcruz.javabank.gateway.out.CreateAccountGateway;
 import br.com.cezarcruz.javabank.gateway.out.PublishAccountCreation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -13,14 +12,12 @@ import reactor.core.publisher.Mono;
 public class StartAccountCreation {
 
     private final PublishAccountCreation publishAccountCreation;
-    private final CreateAccountGateway createAccountMemoryRepository;
 
     public Mono<Void> create(final Account account) {
         return Mono.just(account)
             .map(x -> x.toBuilder()
                 .status(AccountStatus.PENDING)
                 .build())
-            .map(createAccountMemoryRepository::create)
             .flatMap(publishAccountCreation::create);
     }
 }
