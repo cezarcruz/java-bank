@@ -17,11 +17,9 @@ public class KafkaErrorHandler {
                 (cr, e) -> new TopicPartition(cr.topic() + ".DLQ", 0));
 
         var exponentialBackOff = new ExponentialBackOffWithMaxRetries(3);
-        exponentialBackOff.setInitialInterval(1000);
+        exponentialBackOff.setInitialInterval(1_000);
         exponentialBackOff.setMultiplier(1.5);
-        exponentialBackOff.setMaxInterval(2000);
-
-        //errorHandler.addNotRetryableExceptions(javax.validation.ValidationException.class);
+        exponentialBackOff.setMaxInterval(2_000);
 
         return new DefaultErrorHandler(recover, exponentialBackOff);
     }

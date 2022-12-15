@@ -21,5 +21,12 @@ public class GetAccountEntrypoint {
                 .body(BodyInserters.fromValue(account)))
             .orElseThrow();
     }
+
+    public Mono<ServerResponse> getAll() {
+        return getAccountUseCase.getAll()
+            .flatMap(accounts -> ServerResponse.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(BodyInserters.fromValue(accounts)));
+    }
 }
 

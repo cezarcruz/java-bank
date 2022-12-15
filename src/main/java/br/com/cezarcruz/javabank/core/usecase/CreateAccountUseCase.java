@@ -13,13 +13,12 @@ public class CreateAccountUseCase {
     private final AccountGeneratorUseCase accountGeneratorUseCase;
     private final CreateAccountGateway accountMemoryRepository;
 
-    public void create(final String agency) {
+    public void create(final Account account) {
 
-        final Account accountWithAccountNumber = Account.builder()
-                .accountNumber(accountGeneratorUseCase.generate(agency))
-                .agency(agency)
+        final Account accountWithAccountNumber = account.toBuilder()
+            .accountNumber(accountGeneratorUseCase.generate(account.getAgency()))
             .status(AccountStatus.ACTIVE)
-                .build();
+            .build();
 
         accountMemoryRepository.create(accountWithAccountNumber);
     }

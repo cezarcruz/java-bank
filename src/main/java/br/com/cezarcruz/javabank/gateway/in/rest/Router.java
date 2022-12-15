@@ -31,6 +31,7 @@ public class Router {
             .path("/account",
                 builder -> builder
                     .POST(this::createAccount)
+                    .GET(this::getAll)
                     .GET("/{internalId}", accept(MediaType.APPLICATION_JSON), this::getAccountById))
             .build();
     }
@@ -61,6 +62,10 @@ public class Router {
     private Mono<ServerResponse> getAccountById(final ServerRequest req) {
         final String internalId = req.pathVariable("internalId");
         return getAccountEntrypoint.getBy(internalId);
+    }
+
+    private Mono<ServerResponse> getAll(final ServerRequest req) {
+        return getAccountEntrypoint.getAll();
     }
 
 }

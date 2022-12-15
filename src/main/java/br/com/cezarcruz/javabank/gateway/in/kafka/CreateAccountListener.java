@@ -14,11 +14,11 @@ public class CreateAccountListener {
 
     private final CreateAccountUseCase createAccountUseCase;
 
-    @KafkaListener(topics = "topic1")
+    @KafkaListener(topics = "${topics.create-account}")
     public void listen(final Account data) {
         log.info("receiving account {}", data);
 
-        createAccountUseCase.create(data.getAgency());
+        createAccountUseCase.create(data);
 
     }
 

@@ -7,6 +7,7 @@ import br.com.cezarcruz.javabank.gateway.out.GetAccountGateway;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,4 +45,10 @@ public class AccountMemoryRepository implements CreateAccountGateway, GetAccount
                 .filter(a -> internalId.equals(a.getInternalId()))
                 .findFirst();
     }
+
+    @Override
+    public Mono<List<Account>> getAll() {
+        return Mono.just(db);
+    }
+
 }
