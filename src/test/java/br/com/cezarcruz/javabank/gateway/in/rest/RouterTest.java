@@ -32,7 +32,7 @@ class RouterTest {
             .bindToRouterFunction(router.composedRoutes())
             .build();
 
-        final CreateAccountRequest request = new CreateAccountRequest("001");
+        final CreateAccountRequest request = new CreateAccountRequest("001", "doc");
 
         client.post()
             .uri("/account")
