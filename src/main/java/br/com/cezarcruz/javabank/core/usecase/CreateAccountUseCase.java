@@ -16,7 +16,7 @@ public class CreateAccountUseCase {
     public void create(final Account account) {
 
         final Account accountWithAccountNumber = account.toBuilder()
-            .accountNumber(accountGeneratorUseCase.generate(account.getAgency()))
+            .accountNumber(accountGeneratorUseCase.generate(account.agency()))
             .status(AccountStatus.ACTIVE)
             .build();
 

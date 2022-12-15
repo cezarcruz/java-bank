@@ -24,7 +24,7 @@ public class AccountMemoryRepository implements CreateAccountGateway, GetAccount
     @Override
     public Account create(final Account account) {
 
-        if (AccountStatus.PENDING.equals(account.getStatus())) {
+        if (AccountStatus.PENDING.equals(account.status())) {
             db.add(account);
             return account;
         }
@@ -42,7 +42,7 @@ public class AccountMemoryRepository implements CreateAccountGateway, GetAccount
     @Override
     public Optional<Account> getBy(final String internalId) {
         return db.stream()
-                .filter(a -> internalId.equals(a.getInternalId()))
+                .filter(a -> internalId.equals(a.internalId()))
                 .findFirst();
     }
 

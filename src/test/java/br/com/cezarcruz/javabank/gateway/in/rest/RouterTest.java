@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
@@ -32,11 +33,17 @@ class RouterTest {
             .bindToRouterFunction(router.composedRoutes())
             .build();
 
-        final CreateAccountRequest request = new CreateAccountRequest("001", "doc");
+        final String request = """
+            {
+                "agency": 1,
+                "document": "123"
+            }
+            """;
 
         client.post()
             .uri("/account")
-            .body(Mono.just(request), CreateAccountRequest.class)
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(Mono.just(request), String.class)
             .exchange()
             .expectStatus()
             .isAccepted();
