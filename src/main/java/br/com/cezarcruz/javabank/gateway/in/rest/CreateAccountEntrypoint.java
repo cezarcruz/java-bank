@@ -14,13 +14,16 @@ public class CreateAccountEntrypoint {
     private final StartAccountCreation startAccountCreation;
 
     public Mono<Void> create(final CreateAccountRequest request) {
-
         return Mono.just(request)
-            .map(r -> Account.builder()
-                .agency(r.agency())
-                .document(r.document())
-                .build())
-                .flatMap(startAccountCreation::create);
+            .map(this::toAccount)
+            .flatMap(startAccountCreation::create);
+    }
+
+    private Account toAccount(final CreateAccountRequest r) {
+        return Account.builder()
+            .agency(r.agency())
+            .document(r.document())
+            .build();
     }
 
 }

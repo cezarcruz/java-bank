@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 import java.util.UUID;
 
@@ -21,8 +22,11 @@ public class CreateAccountKafkaGateway implements PublishAccountCreation {
 
     @Override
     public Mono<Void> create(final Account account) {
-        kafkaTemplate.send(topic, UUID.randomUUID().toString(), account);
-        return Mono.empty();
+
+        //this should have change to reactive kafka client
+        return Mono.<Void>fromRunnable(() -> {
+            kafkaTemplate.send(topic, account);
+        }).subscribeOn(Schedulers.boundedElastic());
     }
 
 }
