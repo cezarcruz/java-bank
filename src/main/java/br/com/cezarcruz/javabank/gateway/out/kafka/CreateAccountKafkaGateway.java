@@ -22,8 +22,6 @@ public class CreateAccountKafkaGateway implements PublishAccountCreation {
 
     @Override
     public Mono<Void> create(final Account account) {
-
-        //this should have change to reactive kafka client
         return Mono.<Void>fromRunnable(() -> {
             kafkaTemplate.send(topic, account);
         }).subscribeOn(Schedulers.boundedElastic());
