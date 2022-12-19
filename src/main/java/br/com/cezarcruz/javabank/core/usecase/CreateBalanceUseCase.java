@@ -1,7 +1,7 @@
 package br.com.cezarcruz.javabank.core.usecase;
 
 import br.com.cezarcruz.javabank.core.domain.Account;
-import br.com.cezarcruz.javabank.gateway.out.memory.CreateBalanceRepository;
+import br.com.cezarcruz.javabank.gateway.out.memory.BalanceMemoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CreateBalanceUseCase {
 
-    private final CreateBalanceRepository createBalanceRepository;
+    private final BalanceMemoryRepository createBalanceRepository;
 
     public void create(final Account account) {
         createBalanceRepository.create(account);
