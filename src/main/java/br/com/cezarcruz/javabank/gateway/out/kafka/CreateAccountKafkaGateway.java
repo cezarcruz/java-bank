@@ -9,8 +9,6 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
-import java.util.UUID;
-
 @Component
 @RequiredArgsConstructor
 public class CreateAccountKafkaGateway implements PublishAccountCreation {
@@ -22,9 +20,8 @@ public class CreateAccountKafkaGateway implements PublishAccountCreation {
 
     @Override
     public Mono<Void> create(final Account account) {
-        return Mono.<Void>fromRunnable(() -> {
-            kafkaTemplate.send(topic, account);
-        }).subscribeOn(Schedulers.boundedElastic());
+        return Mono.<Void>fromRunnable(() -> kafkaTemplate.send(topic, account))
+            .subscribeOn(Schedulers.boundedElastic());
     }
 
 }
