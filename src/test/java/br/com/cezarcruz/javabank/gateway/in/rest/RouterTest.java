@@ -14,6 +14,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+//DUMMY
 @SpringBootTest
 class RouterTest {
 
@@ -74,5 +75,37 @@ class RouterTest {
 
         verify(startAccountCreation, times(0)).create(any());
     }
+
+    @Test
+    void whenGettingAllAccounts() {
+
+        final WebTestClient client = WebTestClient
+            .bindToRouterFunction(router.composedRoutes())
+            .build();
+
+        client.get()
+            .uri("/account")
+            .exchange()
+            .expectStatus()
+            .isOk();
+
+
+    }
+
+    @Test
+    void whenGettingOneAccount() {
+
+        final WebTestClient client = WebTestClient
+            .bindToRouterFunction(router.composedRoutes())
+            .build();
+
+        client.get()
+            .uri("/account/123")
+            .exchange()
+            .expectStatus()
+            .isOk();
+
+    }
+
 
 }
