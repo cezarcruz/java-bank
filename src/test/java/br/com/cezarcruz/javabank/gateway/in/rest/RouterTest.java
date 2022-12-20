@@ -89,7 +89,6 @@ class RouterTest {
             .expectStatus()
             .isOk();
 
-
     }
 
     @Test
@@ -106,6 +105,5 @@ class RouterTest {
             .isOk();
 
     }
-
 
 }

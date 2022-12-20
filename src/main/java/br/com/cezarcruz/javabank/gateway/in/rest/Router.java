@@ -6,15 +6,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
-import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 import static org.springframework.web.reactive.function.server.ServerResponse.accepted;
 
@@ -32,7 +31,7 @@ public class Router {
                 builder -> builder
                     .POST(this::createAccount)
                     .GET(this::getAll)
-                    .GET("/{internalId}", accept(MediaType.APPLICATION_JSON), this::getAccountById))
+                    .GET("/{internalId}", this::getAccountById))
             .build();
     }
 
@@ -41,22 +40,23 @@ public class Router {
         final CreateAccountValidator validator = new CreateAccountValidator();
 
         return req.bodyToMono(CreateAccountRequest.class)
-            .map(body -> {
-                final var errors = new BeanPropertyBindingResult(body, CreateAccountRequest.class.getName());
-                validator.validate(body, errors);
-
-                if (errors.getAllErrors().isEmpty()) {
-                    return body;
-                } else {
-                    throw new ResponseStatusException(
-                        HttpStatus.BAD_REQUEST,
-                        errors.getAllErrors().toString()
-                    );
-                }
-
-            })
+            .map(body -> errorHandler(validator, body))
             .flatMap(createAccountEntrypoint::create)
             .then(accepted().build());
+    }
+
+    private <T> T errorHandler(final Validator validator, final T body) {
+        final var errors = new BeanPropertyBindingResult(body, CreateAccountRequest.class.getName());
+        validator.validate(body, errors);
+
+        if (errors.getAllErrors().isEmpty()) {
+            return body;
+        } else {
+            throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                errors.getAllErrors().toString()
+            );
+        }
     }
 
     private Mono<ServerResponse> getAccountById(final ServerRequest req) {
