@@ -1,7 +1,6 @@
 package br.com.cezarcruz.javabank.gateway.in.rest;
 
 import br.com.cezarcruz.javabank.core.usecase.StartAccountCreation;
-import br.com.cezarcruz.javabank.gateway.in.rest.request.CreateAccountRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -50,6 +49,30 @@ class RouterTest {
 
         verify(startAccountCreation, times(1)).create(any());
 
+    }
+
+    @Test
+    void whenSendingInvalidPayloadToCreateAccount() {
+
+        final WebTestClient client = WebTestClient
+            .bindToRouterFunction(router.composedRoutes())
+            .build();
+
+        final String request = """
+            {
+                "agency": 1
+            }
+            """;
+
+        client.post()
+            .uri("/account")
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(Mono.just(request), String.class)
+            .exchange()
+            .expectStatus()
+            .isBadRequest();
+
+        verify(startAccountCreation, times(0)).create(any());
     }
 
 }
