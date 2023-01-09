@@ -35,6 +35,28 @@ services:
     environment:
       KAFKA_BROKERCONNECT: kafka:29092
 
+  mysql:
+    image: mysql:8.0.31
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: bank
+    volumes:
+      - mysql_volume:/var/lib/mysql
+    ports:
+      - '3306:3306'
+
+  mongo:
+    image: mongo:4.2
+    ports:
+      - '27017:27017'
+
+  redis:
+    image: redis:5-alpine
+    ports:
+      - '6379:6379'
+
+volumes:
+  mysql_volume:
 networks:
   broker-kafka:
     driver: bridge  
