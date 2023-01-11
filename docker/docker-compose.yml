@@ -50,13 +50,50 @@ services:
     ports:
       - '27017:27017'
 
-  redis:
-    image: redis:5-alpine
+  redis-cluster:
+    image: 'redis:6.0-alpine'
+    command: redis-cli --cluster create 172.20.0.31:6373 172.20.0.32:6374 --cluster-replicas 1 --cluster-yes
+    networks:
+      app_subnet:
+        ipv4_address: 172.20.0.30
+    depends_on:
+      - redis-node-1
+      - redis-node-2
+
+  redis-node-1:
+    image: 'redis:6.0-alpine'
+    command: redis-server /usr/local/etc/redis/redis.conf
     ports:
-      - '6379:6379'
+      - '6373:6373'
+    volumes:
+      - redis-node-1-data:/var/lib/redis
+      - ./redis-node-1.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      app_subnet:
+        ipv4_address: 172.20.0.31
+
+  redis-node-2:
+    image: 'redis:6.0-alpine'
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - '6374:6374'
+    volumes:
+      - redis-node-2-data:/var/lib/redis
+      - ./redis-node-2.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      app_subnet:
+        ipv4_address: 172.20.0.32
 
 volumes:
   mysql_volume:
+  redis-node-1-data:
+  redis-node-2-data:
+
 networks:
+  app_subnet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
   broker-kafka:
-    driver: bridge  
+    driver: bridge
