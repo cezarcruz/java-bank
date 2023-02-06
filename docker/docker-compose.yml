@@ -47,6 +47,8 @@ services:
 
   mongo:
     image: mongo:4.2
+    volumes:
+      - mongo_volume:/data/db
     ports:
       - '27017:27017'
 
@@ -138,6 +140,7 @@ services:
 
 volumes:
   mysql_volume:
+  mongo_volume:
   redis-node-1-data:
   redis-node-2-data:
   redis-node-3-data:
