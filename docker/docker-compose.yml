@@ -8,8 +8,22 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
 
+  kafka-ui:
+    image: provectuslabs/kafka-ui
+    container_name: kafka-ui
+    ports:
+      - "8580:8080"
+    restart: always
+    networks:
+      - broker-kafka
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=local
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=broker.local:9092
+
   kafka:
     image: confluentinc/cp-kafka:latest
+    hostname: broker.local
+    container_name: broker.local
     networks:
       - broker-kafka
     depends_on:
