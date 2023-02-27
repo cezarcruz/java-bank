@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.data.redis.connection.RedisClusterConfiguration;
 import org.springframework.data.redis.connection.RedisConfiguration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
@@ -16,7 +15,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Configuration
 public class RedisConfig {
@@ -25,7 +23,7 @@ public class RedisConfig {
     @Bean
     public LettuceConnectionFactory redisConnectionFactory(final RedisConfiguration redisConfiguration) {
 
-        LettuceClientConfiguration clientConfig = LettuceClientConfiguration.builder()
+        final LettuceClientConfiguration clientConfig = LettuceClientConfiguration.builder()
                 .readFrom(ReadFrom.REPLICA_PREFERRED).build();
 
         return new LettuceConnectionFactory(redisConfiguration, clientConfig);
