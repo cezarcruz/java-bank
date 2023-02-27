@@ -60,5 +60,6 @@ jacocoTestReport {
     reports {
         xml.required
         html.required
+        csv.required
     }
 }
