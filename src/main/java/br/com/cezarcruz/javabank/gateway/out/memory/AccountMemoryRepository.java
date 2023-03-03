@@ -7,7 +7,6 @@ import br.com.cezarcruz.javabank.gateway.out.GetAccountGateway;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,8 +46,8 @@ public class AccountMemoryRepository implements CreateAccountGateway, GetAccount
     }
 
     @Override
-    public Mono<List<Account>> getAll() {
-        return Mono.just(db);
+    public List<Account> getAll() {
+        return db;
     }
 
 }
