@@ -28,9 +28,8 @@ public class AccountMemoryRepository implements CreateAccountGateway, GetAccount
             return account;
         }
 
-        final Account accountWithId = account.toBuilder()
-                .internalId(UUID.randomUUID().toString())
-                .build();
+        final Account accountWithId =
+                account.withInternalId(UUID.randomUUID().toString());
 
         log.info("account created {}", accountWithId);
         db.add(accountWithId);
