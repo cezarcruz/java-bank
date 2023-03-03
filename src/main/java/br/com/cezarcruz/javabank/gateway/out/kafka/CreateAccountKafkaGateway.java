@@ -6,8 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
-import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Schedulers;
 
 @Component
 @RequiredArgsConstructor
@@ -19,9 +17,8 @@ public class CreateAccountKafkaGateway implements PublishAccountCreation {
     private String topic;
 
     @Override
-    public Mono<Void> create(final Account account) {
-        return Mono.<Void>fromRunnable(() -> kafkaTemplate.send(topic, account))
-            .subscribeOn(Schedulers.boundedElastic());
+    public void create(final Account account) {
+        kafkaTemplate.send(topic, account);
     }
 
 }

@@ -4,7 +4,6 @@ import br.com.cezarcruz.javabank.core.domain.Account;
 import br.com.cezarcruz.javabank.gateway.out.GetAccountGateway;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +18,7 @@ public class GetAccountUseCase {
         return getAccountGateway.getBy(internalId);
     }
 
-    public Mono<List<Account>> getAll() {
+    public List<Account> getAll() {
         return getAccountGateway.getAll();
     }
 
