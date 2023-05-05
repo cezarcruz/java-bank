@@ -23,11 +23,11 @@ class AccountMemoryRepositoryTest {
         assertThat(accountMemoryRepository.getAll(), hasSize(0));
 
         final Account account = AccountFactory.generateAccount();
-        accountMemoryRepository.create(account);
+        final Account createdAccount = accountMemoryRepository.create(account);
 
         assertThat(accountMemoryRepository.getAll(), hasSize(1));
 
-        final Optional<Account> foundAccount = accountMemoryRepository.getBy(account.internalId());
+        final Optional<Account> foundAccount = accountMemoryRepository.getBy(createdAccount.internalId());
 
         assertThat(foundAccount.isPresent(), is(true));
         assertThat(foundAccount.get().accountNumber(), is(account.accountNumber()));
