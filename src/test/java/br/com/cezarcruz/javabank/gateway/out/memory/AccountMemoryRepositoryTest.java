@@ -22,7 +22,7 @@ class AccountMemoryRepositoryTest {
 
         assertThat(accountMemoryRepository.getAll(), hasSize(0));
 
-        final Account account = AccountFactory.generateAccount();
+        final Account account = AccountFactory.generateActiveAccount();
         final Account createdAccount = accountMemoryRepository.create(account);
 
         assertThat(accountMemoryRepository.getAll(), hasSize(1));
