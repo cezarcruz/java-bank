@@ -28,7 +28,8 @@ class CreateAccountEntrypointTest {
 
         doNothing().when(startAccountCreation).create(any());
 
-        this.mockMvc.perform(post("/account").content("""
+        this.mockMvc.perform(post("/account")
+                .content("""
                 {
                     "agency": "123",
                     "document": "1234567"
