@@ -4,6 +4,7 @@ import br.com.cezarcruz.javabank.core.domain.Account;
 import br.com.cezarcruz.javabank.core.domain.Balance;
 import br.com.cezarcruz.javabank.gateway.out.CreateBalanceGateway;
 import br.com.cezarcruz.javabank.gateway.out.GetBalanceGateway;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
@@ -17,6 +18,7 @@ import static org.hamcrest.Matchers.nullValue;
 class CreateBalanceRepositoryTest {
 
     @Test
+    @DisplayName("creating new balance")
     void createBalance() {
         final CreateBalanceGateway createBalanceRepository = new BalanceMemoryRepository();
         final Account account = Account.builder().internalId(UUID.randomUUID().toString()).build();
