@@ -5,7 +5,7 @@ import lombok.With;
 
 @Builder(toBuilder = true)
 public record Account(
-        @With
+    @With
     String internalId,
     String document,
     Integer accountNumber,

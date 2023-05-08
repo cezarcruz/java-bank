@@ -26,7 +26,7 @@ class StartAccountCreationTest {
     @Test
     void shouldStartAnAccountCreation() {
 
-        final Account account = AccountFactory.generateAccount();
+        final Account account = AccountFactory.generatePendingAccount();
         doNothing().when(publishAccountCreation).create(account);
 
         startAccountCreation.create(account);
