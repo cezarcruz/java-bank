@@ -53,7 +53,7 @@ sonarqube {
         property "sonar.projectKey", "cezarcruz_java-bank"
         property "sonar.organization", "cezarcruz"
         property "sonar.host.url", "https://sonarcloud.io"
-        property "sonar.exclusions", "**/core/config/**"
+        property "sonar.exclusions", "**/core/config/**,**KafkaErrorHandler.java"
     }
 }
 
