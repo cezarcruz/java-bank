@@ -13,7 +13,7 @@ services:
       - '3306:3306'
 
   mongo:
-    image: mongo:4.2
+    image: mongo:6
     container_name: mongo-db
     volumes:
       - mongo_volume:/data/db
