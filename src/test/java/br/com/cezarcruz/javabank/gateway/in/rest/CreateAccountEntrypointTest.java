@@ -1,10 +1,12 @@
 package br.com.cezarcruz.javabank.gateway.in.rest;
 
 import br.com.cezarcruz.javabank.core.usecase.StartAccountCreation;
+import br.com.cezarcruz.javabank.gateway.in.rest.mappers.AccountMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -19,6 +21,9 @@ class CreateAccountEntrypointTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    private AccountMapper accountMapper;
 
     @MockBean
     private StartAccountCreation startAccountCreation;

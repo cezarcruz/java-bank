@@ -2,6 +2,7 @@ package br.com.cezarcruz.javabank.gateway.in.rest;
 
 import br.com.cezarcruz.javabank.core.domain.Account;
 import br.com.cezarcruz.javabank.core.usecase.StartAccountCreation;
+import br.com.cezarcruz.javabank.gateway.in.rest.mappers.AccountMapper;
 import br.com.cezarcruz.javabank.gateway.in.rest.request.CreateAccountRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,22 +17,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class CreateAccountEntrypoint {
 
     private final StartAccountCreation startAccountCreation;
+    private final AccountMapper accountMapper;
 
     @PostMapping
     public ResponseEntity<Void> create(final CreateAccountRequest request) {
 
-        final Account account = this.toAccount(request);
+        final Account account = accountMapper.from(request);
 
         startAccountCreation.create(account);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
-    }
-
-    private Account toAccount(final CreateAccountRequest r) {
-        return Account.builder()
-            .agency(r.agency())
-            .document(r.document())
-            .build();
     }
 
 }
