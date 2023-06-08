@@ -22,11 +22,13 @@ public class CreateAccountEntrypoint {
     @PostMapping
     public ResponseEntity<Void> create(final CreateAccountRequest request) {
 
-        final Account account = accountMapper.from(request);
+        final var account = accountMapper.from(request);
 
         startAccountCreation.create(account);
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .build();
     }
 
 }

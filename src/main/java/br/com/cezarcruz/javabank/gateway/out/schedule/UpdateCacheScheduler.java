@@ -1,6 +1,5 @@
 package br.com.cezarcruz.javabank.gateway.out.schedule;
 
-import br.com.cezarcruz.javabank.core.domain.Account;
 import br.com.cezarcruz.javabank.core.usecase.StartAccountCreation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
