@@ -1,6 +1,5 @@
 package br.com.cezarcruz.javabank.gateway.in.rest;
 
-import br.com.cezarcruz.javabank.core.domain.Account;
 import br.com.cezarcruz.javabank.core.usecase.StartAccountCreation;
 import br.com.cezarcruz.javabank.gateway.in.rest.mappers.AccountMapper;
 import br.com.cezarcruz.javabank.gateway.in.rest.request.CreateAccountRequest;
