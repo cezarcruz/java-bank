@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Component
 @RequiredArgsConstructor
-public class RedisCache implements Cache {
+public class RedisCacheWrapper implements Cache {
 
     private final RedisTemplate<String, LocalDateTime> redisTemplate;
 

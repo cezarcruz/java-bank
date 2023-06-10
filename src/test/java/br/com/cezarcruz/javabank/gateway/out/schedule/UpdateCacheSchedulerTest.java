@@ -1,6 +1,6 @@
 package br.com.cezarcruz.javabank.gateway.out.schedule;
 
-import br.com.cezarcruz.javabank.gateway.out.cache.redis.RedisCache;
+import br.com.cezarcruz.javabank.gateway.out.cache.redis.RedisCacheWrapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,7 +15,7 @@ import static org.mockito.Mockito.verify;
 class UpdateCacheSchedulerTest {
 
     @Mock
-    private RedisCache redisCache;
+    private RedisCacheWrapper redisCache;
 
     @InjectMocks
     private UpdateCacheScheduler updateCacheScheduler;
