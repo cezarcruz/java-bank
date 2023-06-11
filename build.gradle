@@ -26,15 +26,12 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.kafka:spring-kafka'
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
-    //testImplementation 'org.springframework.kafka:spring-kafka-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher' //temp
 
     testImplementation 'org.hamcrest:hamcrest-all:1.3'
