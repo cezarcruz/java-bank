@@ -6,6 +6,8 @@ import br.com.cezarcruz.javabank.gateway.out.CreateAccountGateway;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @AllArgsConstructor
 public class CreateAccountUseCase {
@@ -17,6 +19,7 @@ public class CreateAccountUseCase {
 
         final Account accountWithAccountNumber = account.toBuilder()
             .accountNumber(accountGeneratorUseCase.generate(account.agency()))
+            .internalId(UUID.randomUUID().toString())
             .status(AccountStatus.ACTIVE)
             .build();
 
