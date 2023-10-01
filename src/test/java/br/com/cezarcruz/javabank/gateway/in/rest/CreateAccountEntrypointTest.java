@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -33,13 +33,16 @@ class CreateAccountEntrypointTest {
 
         doNothing().when(startAccountCreation).create(any());
 
-        this.mockMvc.perform(post("/account")
-                .content("""
-                {
-                    "agency": "123",
-                    "document": "1234567"
-                }
-                """))
+        this.mockMvc.perform(
+                post("/account")
+                        .content("""
+                                    {
+                                        "agency": "123",
+                                        "document": "1234567"
+                                    }
+                                """)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON))
             .andDo(print())
             .andExpect(status().isCreated());
 

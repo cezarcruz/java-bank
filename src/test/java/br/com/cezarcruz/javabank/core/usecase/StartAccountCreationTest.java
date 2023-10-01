@@ -2,7 +2,6 @@ package br.com.cezarcruz.javabank.core.usecase;
 
 import br.com.cezarcruz.javabank.core.domain.Account;
 import br.com.cezarcruz.javabank.factory.AccountFactory;
-import br.com.cezarcruz.javabank.gateway.out.PublishAccountCreation;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,7 +16,7 @@ import static org.mockito.Mockito.verify;
 class StartAccountCreationTest {
 
     @Mock
-    private PublishAccountCreation publishAccountCreation;
+    private CreateAccountUseCase createAccountUseCase;
 
     @InjectMocks
     private StartAccountCreation startAccountCreation;
@@ -27,11 +26,11 @@ class StartAccountCreationTest {
     void shouldStartAnAccountCreation() {
 
         final Account account = AccountFactory.generatePendingAccount();
-        doNothing().when(publishAccountCreation).create(account);
+        doNothing().when(createAccountUseCase).create(account);
 
         startAccountCreation.create(account);
 
-        verify(publishAccountCreation).create(account);
+        verify(createAccountUseCase).create(account);
     }
 
 }
