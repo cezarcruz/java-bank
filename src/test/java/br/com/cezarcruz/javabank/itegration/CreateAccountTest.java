@@ -2,7 +2,7 @@ package br.com.cezarcruz.javabank.itegration;
 
 
 import br.com.cezarcruz.javabank.gateway.in.rest.request.CreateAccountRequest;
-import br.com.cezarcruz.javabank.gateway.out.mongo.AccountMongoRepository;
+import br.com.cezarcruz.javabank.gateway.out.mongo.AccountMongoGateway;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,7 +27,7 @@ class CreateAccountTest {
     private TestRestTemplate testRestTemplate;
 
     @Autowired
-    private AccountMongoRepository accountMongoRepository;
+    private AccountMongoGateway accountMongoRepository;
 
     @Test
     @Order(1)
@@ -39,7 +39,7 @@ class CreateAccountTest {
 
         Assertions.assertEquals(HttpStatus.CREATED, result.getStatusCode());
 
-        long count = accountMongoRepository.count();
+        long count = accountMongoRepository.getAll().size();
         Assertions.assertEquals(1, count);
 
     }
