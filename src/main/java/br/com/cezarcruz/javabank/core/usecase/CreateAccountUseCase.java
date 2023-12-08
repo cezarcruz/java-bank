@@ -3,17 +3,21 @@ package br.com.cezarcruz.javabank.core.usecase;
 import br.com.cezarcruz.javabank.core.domain.Account;
 import br.com.cezarcruz.javabank.core.domain.AccountStatus;
 import br.com.cezarcruz.javabank.gateway.out.CreateAccountGateway;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
 @Service
-@AllArgsConstructor
 public class CreateAccountUseCase {
 
     private final AccountGeneratorUseCase accountGeneratorUseCase;
     private final CreateAccountGateway accountMemoryRepository;
+
+    public CreateAccountUseCase(final AccountGeneratorUseCase accountGeneratorUseCase,
+                                final CreateAccountGateway accountMemoryRepository) {
+        this.accountGeneratorUseCase = accountGeneratorUseCase;
+        this.accountMemoryRepository = accountMemoryRepository;
+    }
 
     public void create(final Account account) {
 
