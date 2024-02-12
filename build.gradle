@@ -36,7 +36,7 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher' //temp
 
     testImplementation 'org.hamcrest:hamcrest-all:1.3'
-    testImplementation 'org.instancio:instancio-junit:4.1.0'
+    testImplementation 'org.instancio:instancio-junit:4.2.0'
 
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
 
